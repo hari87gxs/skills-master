@@ -18,6 +18,12 @@
 
 📁 [View Skill](./gitlab-visual-docs/) | 📖 [Documentation](./gitlab-visual-docs/README.md)
 
+### 3. **dbt Cross-Bank Compare Skill** — OpenCode Skill
+**Type:** OpenCode Skill  
+**Purpose:** Deep column-level comparison of two dbt transformer repositories across banks, identifies common/divergent/unique models, and generates comprehensive homogenization plan with dual strategies
+
+📁 [View Skill](./dbt-cross-bank-compare/) | 📖 [Documentation](./dbt-cross-bank-compare/README.md)
+
 ---
 
 ## 🚀 Quick Start
@@ -35,6 +41,13 @@ npm run compile
 ```bash
 git clone https://github.com/hari87gxs/skills-master.git
 cp -r skills-master/gitlab-visual-docs ~/.config/opencode/skills/
+# Restart OpenCode or reload skills
+```
+
+### For dbt Cross-Bank Compare Skill (OpenCode)
+```bash
+git clone https://github.com/hari87gxs/skills-master.git
+cp -r skills-master/dbt-cross-bank-compare ~/.config/opencode/skills/
 # Restart OpenCode or reload skills
 ```
 
