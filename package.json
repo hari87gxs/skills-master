@@ -1,0 +1,99 @@
+{
+  "name": "jira-progress-skill",
+  "displayName": "Jira Progress Skill",
+  "description": "A Copilot skill that visualises Jira team productivity dashboards inside VS Code Chat",
+  "version": "0.0.1",
+  "engines": { "vscode": "^1.95.0" },
+  "categories": ["AI", "Other"],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "jira-progress-skill.dashboard",
+        "name": "jira",
+        "fullName": "Jira Progress Dashboard",
+        "description": "Ask me for a visual team-productivity report from your Jira board",
+        "isSticky": false
+      }
+    ],
+
+    "languageModelTools": [
+      {
+        "name": "jira_team_progress",
+        "tags": ["jira", "productivity", "dashboard", "reporting"],
+        "toolReferenceName": "jiraProgress",
+        "displayName": "Jira Team Progress",
+        "modelDescription": "Fetches live Jira board data and generates a beautiful HTML dashboard with team productivity metrics. Extracts jiraBaseUrl, projectKey, and boardId from the user's message. If the user says 'show progress for board 3059 at gxsbank.atlassian.net', extract: jiraBaseUrl='https://gxsbank.atlassian.net', boardId=3059. If the user mentions a project key like 'RGDENG', extract projectKey='RGDENG'. Always include the protocol (https://) in the base URL. Returns an HTML file that opens in the browser showing: total issues, completed, in-progress, backlog, per-engineer cards, blocked items, and completion rate.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "jiraBaseUrl": {
+              "type": "string",
+              "description": "The base URL of the Jira instance, e.g. https://mycompany.atlassian.net"
+            },
+            "projectKey": {
+              "type": "string",
+              "description": "Jira project key, e.g. RGDENG"
+            },
+            "boardId": {
+              "type": "number",
+              "description": "Jira board ID (find it in the board URL)"
+            },
+            "sprintName": {
+              "type": "string",
+              "description": "Optional sprint name to filter by (defaults to active sprint)"
+            }
+          },
+          "required": ["jiraBaseUrl", "projectKey", "boardId"]
+        }
+      }
+    ],
+
+    "configuration": {
+      "title": "Jira Progress Skill",
+      "properties": {
+        "jiraProgressSkill.email": {
+          "type": "string",
+          "default": "",
+          "description": "Your Atlassian account email (used with the API token)"
+        },
+        "jiraProgressSkill.apiToken": {
+          "type": "string",
+          "default": "",
+          "description": "Your Jira API token from https://id.atlassian.com/manage-profile/security/api-tokens"
+        },
+        "jiraProgressSkill.defaultBaseUrl": {
+          "type": "string",
+          "default": "",
+          "description": "Default Jira base URL, e.g. https://mycompany.atlassian.net"
+        },
+        "jiraProgressSkill.defaultProjectKey": {
+          "type": "string",
+          "default": "",
+          "description": "Default Jira project key, e.g. RGDENG"
+        },
+        "jiraProgressSkill.defaultBoardId": {
+          "type": "number",
+          "default": 0,
+          "description": "Default Jira board ID"
+        }
+      }
+    }
+  },
+
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js"
+  },
+
+  "devDependencies": {
+    "@types/node": "^20.x",
+    "@types/vscode": "^1.95.0",
+    "typescript": "^5.4.0"
+  }
+}
