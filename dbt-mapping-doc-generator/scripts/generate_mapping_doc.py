@@ -22,13 +22,19 @@ from collections import defaultdict
 
 try:
     import snowflake.connector
+    SNOWFLAKE_AVAILABLE = True
 except ImportError:
+    SNOWFLAKE_AVAILABLE = False
+    snowflake = None
     print("Warning: snowflake-connector-python not installed")
     print("Install with: pip3 install snowflake-connector-python")
 
 try:
     import sqlparse
+    SQLPARSE_AVAILABLE = True
 except ImportError:
+    SQLPARSE_AVAILABLE = False
+    sqlparse = None
     print("Warning: sqlparse not installed")
     print("Install with: pip3 install sqlparse")
 
@@ -300,6 +306,9 @@ class SnowflakeMetadataExtractor:
     
     def connect(self):
         """Connect to Snowflake using browser SSO"""
+        if not SNOWFLAKE_AVAILABLE:
+            raise ImportError("snowflake-connector-python is required. Install with: pip3 install snowflake-connector-python")
+        
         print(f"Connecting to Snowflake: {self.account}")
         print("Browser window will open for authentication...")
         
@@ -311,6 +320,15 @@ class SnowflakeMetadataExtractor:
             warehouse=self.warehouse
         )
         
+        # Set warehouse context
+        cursor = self.conn.cursor()
+        try:
+            cursor.execute(f"USE WAREHOUSE {self.warehouse}")
+        except:
+            pass  # Warehouse might not be available with PUBLIC role
+        finally:
+            cursor.close()
+        
         print("✓ Connected to Snowflake")
     
     def get_table_metadata(self, database: str, schema: str, table: str) -> Dict:
@@ -319,7 +337,7 @@ class SnowflakeMetadataExtractor:
         
         # Get table description
         table_query = f"""
-        SELECT TABLE_COMMENT
+        SELECT COMMENT
         FROM {database}.INFORMATION_SCHEMA.TABLES
         WHERE TABLE_SCHEMA = '{schema.upper()}'
         AND TABLE_NAME = '{table.upper()}'
