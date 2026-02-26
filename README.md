@@ -24,6 +24,12 @@
 
 📁 [View Skill](./dbt-cross-bank-compare/) | 📖 [Documentation](./dbt-cross-bank-compare/README.md)
 
+### 4. **dbt Mapping Doc Generator** — OpenCode Skill
+**Type:** OpenCode Skill  
+**Purpose:** Reverse-engineers comprehensive mapping documentation from dbt models by analyzing SQL transformations, schema.yml descriptions, and Snowflake metadata. Exports to CSV for Google Sheets.
+
+📁 [View Skill](./dbt-mapping-doc-generator/) | 📖 [Documentation](./dbt-mapping-doc-generator/README.md) | 🚀 [Quick Start](./dbt-mapping-doc-generator/QUICKSTART.md)
+
 ---
 
 ## 🚀 Quick Start
@@ -49,6 +55,14 @@ cp -r skills-master/gitlab-visual-docs ~/.config/opencode/skills/
 git clone https://github.com/hari87gxs/skills-master.git
 cp -r skills-master/dbt-cross-bank-compare ~/.config/opencode/skills/
 # Restart OpenCode or reload skills
+```
+
+### For dbt Mapping Doc Generator (Standalone)
+```bash
+git clone https://github.com/hari87gxs/skills-master.git
+cd skills-master/dbt-mapping-doc-generator
+pip3 install snowflake-connector-python pyyaml sqlparse
+# See QUICKSTART.md for usage
 ```
 
 ---
