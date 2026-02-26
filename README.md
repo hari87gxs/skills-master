@@ -1,3 +1,45 @@
+# Skills Master — AI Coding Assistant Skills Collection
+
+> A curated collection of powerful **AI coding assistant skills** for VS Code (GitHub Copilot) and OpenCode that automate complex workflows and generate beautiful visual outputs.
+
+---
+
+## 🎯 Available Skills
+
+### 1. **Jira Progress Skill** — VS Code Extension
+**Type:** GitHub Copilot Skill (VS Code Extension)  
+**Purpose:** Fetches live Jira sprint data and renders a rich visual productivity dashboard directly inside VS Code Chat
+
+📁 [View Skill](./src/) | 📖 [Documentation](#jira-progress-skill)
+
+### 2. **GitLab Visual Docs Skill** — OpenCode Skill
+**Type:** OpenCode Skill  
+**Purpose:** Connects to private GitLab repositories, analyzes dbt projects, and generates beautiful standalone HTML visual documentation with interactive dependency maps
+
+📁 [View Skill](./gitlab-visual-docs/) | 📖 [Documentation](./gitlab-visual-docs/README.md)
+
+---
+
+## 🚀 Quick Start
+
+### For Jira Progress Skill (VS Code)
+```bash
+git clone https://github.com/hari87gxs/skills-master.git
+cd skills-master
+npm install
+npm run compile
+# Press F5 in VS Code to launch
+```
+
+### For GitLab Visual Docs Skill (OpenCode)
+```bash
+git clone https://github.com/hari87gxs/skills-master.git
+cp -r skills-master/gitlab-visual-docs ~/.config/opencode/skills/
+# Restart OpenCode or reload skills
+```
+
+---
+
 # Jira Progress Skill — VS Code Extension
 
 > A **GitHub Copilot Skill** that fetches live Jira sprint data and renders a rich visual productivity dashboard directly inside VS Code Chat — just like the RGDENG Weekly Productivity report.
